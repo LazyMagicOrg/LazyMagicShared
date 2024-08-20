@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7D8C4C74-2E88-4A02-947F-2794C648FF99}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		CommonPackageHandling.targets = CommonPackageHandling.targets
+		Directory.Packages.props = Directory.Packages.props
+		LICENSE.txt = LICENSE.txt
+		PackageVersions.props = PackageVersions.props
+		.github\workflows\publish-nuget.yaml = .github\workflows\publish-nuget.yaml
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LazyMagic.Shared", "LazyMagic.Shared\LazyMagic.Shared.csproj", "{D502F59F-BB5B-4E51-B07A-4A3C8FC5F078}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LazyMagic.Shared.Notifications", "LazyMagic.Shared.Notifications\LazyMagic.Shared.Notifications.csproj", "{D6C8BFEA-CED4-47F4-A856-B3F3123F9110}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D502F59F-BB5B-4E51-B07A-4A3C8FC5F078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D502F59F-BB5B-4E51-B07A-4A3C8FC5F078}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D502F59F-BB5B-4E51-B07A-4A3C8FC5F078}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D502F59F-BB5B-4E51-B07A-4A3C8FC5F078}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6C8BFEA-CED4-47F4-A856-B3F3123F9110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6C8BFEA-CED4-47F4-A856-B3F3123F9110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6C8BFEA-CED4-47F4-A856-B3F3123F9110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6C8BFEA-CED4-47F4-A856-B3F3123F9110}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A47CDEA7-D5BE-4873-8D06-6DBAE5D0C5CD}
+	EndGlobalSection
+EndGlobal
