@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<!-- Note that this .targets file lives in the solution folder, so MSBuildThisFileDirectory is the solution folder,
 		     regardless of which project the CommonPackageHandling.targets file is used in. -->
-		<PackageRepoFolder>$(MSBuildThisFileDirectory)\Packages</PackageRepoFolder>
+		<PackageRepoFolder>$(SolutionDir)Packages\</PackageRepoFolder>
 		<Copyright>Copyright (c) 2021,2022 Insight Sciences Corporation. All rights reserved.</Copyright>
 		<PackageProjectUrl>https://LazyMagic.io</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/InSciCo/LazyMagicShared</RepositoryUrl>
@@ -18,7 +18,7 @@
 	</PropertyGroup>
 
 	<Target Name="CopyPackageLicense" BeforeTargets="Clean">
-		<Copy SourceFiles="$(MSBuildThisFileDirectory)\LICENSE.txt" DestinationFiles="LICENSE.txt" />
+		<Copy SourceFiles="$(SollutionDir)LICENSE.txt" DestinationFiles="LICENSE.txt" />
 	</Target>
 
 	<ItemGroup>
@@ -27,30 +27,37 @@
 
 	<!-- Copy Package Target -->
 	<Target Name="CopyPackage" AfterTargets="Pack">
-		<Message Importance="high" Text="Copying $(AssemblyName).$(Version).nupkg to Packages folder" />
+		<Message Importance="high" Text="Copying $(AssemblyName).$(Version).nupkg to $(PackageRepoFolder)" />
+		
 		<MakeDir Directories="$(PackageRepoFolder)" />
-		<Copy SourceFiles=".\bin\$(Configuration)\$(AssemblyName).$(Version).nupkg"
-			  DestinationFiles="$(PackageRepoFolder)\$(AssemblyName).$(Version).nupkg" />
-		<Copy Condition="Exists('.\bin\$(Configuration)\$(AssemblyName).$(Version).snupkg')"
-			  SourceFiles=".\bin\$(Configuration)\$(AssemblyName).$(Version).snupkg"
-			  DestinationFiles="$(PackageRepoFolder)\$(AssemblyName).$(Version).snupkg" />
+		
+		<Copy SourceFiles="$(ProjectDir)bin\$(Configuration)\$(AssemblyName).$(Version).nupkg"
+			  DestinationFiles="$(PackageRepoFolder)$(AssemblyName).$(Version).nupkg" />
+		
+		<Copy Condition="Exists('$(ProjectcDir)bin\$(Configuration)\$(AssemblyName).$(Version).snupkg')"
+			  SourceFiles="$(projectDir)bin\$(Configuration)\$(AssemblyName).$(Version).snupkg"
+			  DestinationFiles="$(PackageRepoFolder)$(AssemblyName).$(Version).snupkg" />
 	</Target>
 	<!-- Delete Package from local cache -->
 	<Target Name="DeletePackage" AfterTargets="Build">
 		<MSBuild Projects="$(MSBuildProjectFile)" Targets="DeleteSpecificPackage" Properties="Configuration=$(Configuration)" />
 	</Target>
+	
 	<Target Name="DeleteSpecificPackage">
 		<PropertyGroup>
 			<PackageCacheFolder Condition=" '$(OS)' == 'Windows_NT' ">$(UserProfile)\.nuget\packages\$(AssemblyName)\$(Version)</PackageCacheFolder>
 			<PackageCacheFolder Condition=" '$(OS)' != 'Windows_NT' ">$(Home)/.nuget/packages/$(AssemblyName)/$(Version)</PackageCacheFolder>
 		</PropertyGroup>
+		
 		<Message Importance="high" Text="Attempting to delete package $(AssemblyName) version $(Version) from cache folder $(PackageCacheFolder)" />
+		
 		<!-- Windows-specific delete command -->
 		<Exec Condition=" '$(OS)' == 'Windows_NT' AND Exists('$(PackageCacheFolder)')"
 			  Command="cmd.exe /c &quot;if exist &quot;$(PackageCacheFolder)&quot; rmdir /s /q &quot;$(PackageCacheFolder)&quot;&quot;"
 			  ContinueOnError="true">
 			<Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
 		</Exec>
+		
 		<!-- Unix/Linux/Mac-specific delete command -->
 		<Exec Condition=" '$(OS)' != 'Windows_NT' AND Exists('$(PackageCacheFolder)')"
 			  Command="rm -rf &quot;$(PackageCacheFolder)&quot;"
