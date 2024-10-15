@@ -14,7 +14,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.x' # Update to your .NET version
+        dotnet-version: '8.x' # Update to your .NET version
 
     - name: Restore dependencies
       run: dotnet restore
@@ -24,5 +24,5 @@ jobs:
 
     - name: Publish
       run: |
-        dotnet nuget push ./Packages/*.nupkg --source https://nuget.pkg.github.com/InSciCo/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
-        dotnet nuget push ./Packages/*.snupkg --source https://nuget.pkg.github.com/InSciCo/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
+        dotnet nuget push ./Packages/*.nupkg --source https://nuget.pkg.github.com/LazyMagicOrg/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
+        dotnet nuget push ./Packages/*.snupkg --source https://nuget.pkg.github.com/LazyMagicOrg/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
